@@ -1,7 +1,19 @@
 import * as crypto from 'crypto';
 import * as querystring from 'querystring';
 
-export function createHmac(method: string, path: string, accessKeyId: string, privateKey: string) {
+interface HmacResponse {
+  method: string;
+  path: string;
+  qs: {
+    AccessKeyId: string;
+    SignatureMethod: string;
+    SignatureVersion: number;
+    Timestamp: string;
+    Signature: string;
+  };
+}
+
+export function createHmac(method: string, path: string, accessKeyId: string, privateKey: string): HmacResponse {
   const d = new Date();
 
   const month = d.getUTCMonth() + 1;
@@ -45,9 +57,15 @@ export function createHmac(method: string, path: string, accessKeyId: string, pr
     .update(param)
     .digest('base64');
 
-  return Object.assign(signatureParams, { Signature: signature });
+  const qsResult = Object.assign(signatureParams, { Signature: signature });
+
+  return {
+    method,
+    path,
+    qs: qsResult,
+  };
 }
 
-function leftPadDateTime(d: number) {
+function leftPadDateTime(d: number): string {
   return (d > 9 ? '' : '0') + d;
 }

@@ -16,7 +16,7 @@ export class Huobi {
     this.accountClass = new Account(accessTokenId, privateKey);
     this.marketClass = new Market();
     this.publicClass = new Public();
-    this.tradeClass = new Trade(accessTokenId, privateKey);
+    // this.tradeClass = new Trade(accessTokenId, privateKey);
   }
 
   public market() {
