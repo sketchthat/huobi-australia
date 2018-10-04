@@ -1,8 +1,8 @@
-import { createHmac } from './common';
+// import { createHmac } from './common';
 
 export class Trade {
-  constructor(
-    accessTokenId?: string,
-    privateKey?: string,
-  ) { }
+  // constructor(
+  //   // accessTokenId?: string,
+  //   // privateKey?: string,
+  // ) { }
 }
