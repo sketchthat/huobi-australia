@@ -9,8 +9,7 @@ export class Account {
   private accessTokenId: string;
   private privateKey: string;
 
-  private apiVersion: string;
-  private pathPrefix: string;
+  private apiPrefix: string;
   private requestMethod: string;
 
   constructor(
@@ -22,15 +21,16 @@ export class Account {
     this.accessTokenId = accessTokenId;
     this.privateKey = privateKey;
 
-    this.apiVersion = '/v1';
-    this.pathPrefix = '/account';
+    const apiVersion = '/v1';
+    const apiGroup = '/account';
+    this.apiPrefix = `${apiVersion}${apiGroup}`;
     this.requestMethod = 'GET';
   }
 
   public async accounts(): Promise<Accounts> {
     const r = createHmac(
       this.requestMethod,
-      `${this.apiVersion}${this.pathPrefix}/accounts`,
+      `${this.apiPrefix}/accounts`,
       this.accessTokenId,
       this.privateKey,
     );
@@ -41,7 +41,7 @@ export class Account {
   public async accountsBalance(accountId: number): Promise<AccountsBalances> {
     const r = createHmac(
       this.requestMethod,
-      `${this.apiVersion}${this.pathPrefix}/accounts/${accountId}/balance`,
+      `${this.apiPrefix}/accounts/${accountId}/balance`,
       this.accessTokenId,
       this.privateKey,
     );
