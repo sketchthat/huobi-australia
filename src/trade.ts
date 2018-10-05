@@ -1,5 +1,6 @@
 import { Common } from './common';
-import { createHmac } from './services/authentication';
+import { TradeOrderDirectType, TradeOrders, TradeOrderStatesType, TradeOrderTypesType } from './interfaces/tradeOrders.interface';
+import { buildQs, createHmac } from './services/authentication';
 
 export class Trade {
   private common: Common;
@@ -8,7 +9,6 @@ export class Trade {
   private privateKey: string;
 
   private apiPrefix: string;
-  private requestMethod: string;
 
   constructor(
     accessTokenId?: string,
@@ -22,15 +22,37 @@ export class Trade {
     const apiVersion = '/v1';
     const apiGroup = '/order';
     this.apiPrefix = `${apiVersion}${apiGroup}`;
-    this.requestMethod = 'GET';
   }
 
-  public async orders(): Promise<any> {
+  public async orders(
+    symbol: string,
+    states: TradeOrderStatesType[],
+    accountId?: string,
+    types?: TradeOrderTypesType[],
+    startDate?: string,
+    endDate?: string,
+    from?: string,
+    direct?: TradeOrderDirectType,
+    size?: string,
+  ): Promise<TradeOrders> {
+    const qs = buildQs({
+      symbol,
+      states,
+      accountId,
+      types,
+      startDate,
+      endDate,
+      from,
+      direct,
+      size,
+    });
+
     const r = createHmac(
-      this.requestMethod,
+      'GET',
       `${this.apiPrefix}/orders`,
       this.accessTokenId,
       this.privateKey,
+      qs,
     );
 
     return this.common.request(r.method, r.path, r.qs);

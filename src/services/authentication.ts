@@ -13,7 +13,7 @@ interface HmacResponse {
   };
 }
 
-export function createHmac(method: string, path: string, accessKeyId: string, privateKey: string): HmacResponse {
+export function createHmac(method: string, path: string, accessKeyId: string, privateKey: string, qs?: any): HmacResponse {
   const d = new Date();
 
   const month = d.getUTCMonth() + 1;
@@ -43,27 +43,47 @@ export function createHmac(method: string, path: string, accessKeyId: string, pr
   ];
 
   // TODO - Sort by Alphabetical when additional queries exist
-  const signatureParams = {
+  const signatureParams = Object.assign({
     AccessKeyId: accessKeyId,
     SignatureMethod: 'HmacSHA256',
     SignatureVersion: 2,
     Timestamp: timestamp,
-  };
+  }, qs ? qs : {});
 
-  const qs = querystring.stringify(signatureParams);
-  const param = `${message.join('\n')}\n${qs}`;
+  const orderedSignatureParams = {};
+
+  Object.keys(signatureParams).sort()
+    .forEach(key => {
+      orderedSignatureParams[key] = signatureParams[key];
+    });
+
+  const stringQs = querystring.stringify(orderedSignatureParams);
+  const param = `${message.join('\n')}\n${stringQs}`;
 
   const signature = crypto.createHmac('sha256', new Buffer(privateKey, 'utf8'))
     .update(param)
     .digest('base64');
 
-  const qsResult = Object.assign(signatureParams, { Signature: signature });
+  const qsResult = Object.assign(orderedSignatureParams, { Signature: signature });
 
   return {
     method,
     path,
-    qs: qsResult,
+    qs: qsResult as any,
   };
+}
+
+export function buildQs(qs: any): any {
+  const returnQs = {};
+
+  Object.keys(qs)
+    .forEach(key => {
+      if (qs[key]) {
+        returnQs[key] = qs[key] instanceof Array ? qs[key].join(',') : qs[key];
+      }
+    });
+
+  return returnQs;
 }
 
 function leftPadDateTime(d: number): string {
