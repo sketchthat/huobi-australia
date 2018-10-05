@@ -17,4 +17,3 @@ interface MarketHistoryKlineData {
 }
 
 export type MarketHistoryKlineType = '1min' | '5min' | '15min' | '30min' | '60min' | '1day' | '1mon';
-

@@ -16,4 +16,3 @@ interface MarketDepthTick {
 }
 
 export type MarketDepthType = 'step0' | 'step1' | 'step2' | 'step3' | 'step4' | 'step5';
-

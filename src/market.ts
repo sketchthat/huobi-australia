@@ -9,13 +9,14 @@ import { MarketTrade } from './interfaces/marketTrade.interface';
 
 export class Market {
   private common: Common;
-  private method: string;
+
+  private requestMethod: string;
   private pathPrefix: string;
 
   constructor() {
     this.common = new Common();
 
-    this.method = 'GET';
+    this.requestMethod = 'GET';
     this.pathPrefix = '/market';
   }
 
@@ -26,7 +27,7 @@ export class Market {
       size: (size ? size : (size > 2000 ? 2000 : size)),
     };
 
-    return this.common.request(this.method, `${this.pathPrefix}/history/kline`, qs);
+    return this.common.request(this.requestMethod, `${this.pathPrefix}/history/kline`, qs);
   }
 
   public async detailMerged(symbol: string): Promise<MarketDetailMerged> {
@@ -34,7 +35,7 @@ export class Market {
       symbol: symbol.toLowerCase(),
     };
 
-    return this.common.request(this.method, `${this.pathPrefix}/detail/merged`, qs);
+    return this.common.request(this.requestMethod, `${this.pathPrefix}/detail/merged`, qs);
   }
 
   public async depth(symbol: string, type: MarketDepthType): Promise<MarketDepth> {
@@ -43,7 +44,7 @@ export class Market {
       type,
     };
 
-    return this.common.request(this.method, `${this.pathPrefix}/depth`, qs);
+    return this.common.request(this.requestMethod, `${this.pathPrefix}/depth`, qs);
   }
 
   public async trade(symbol: string): Promise<MarketTrade> {
@@ -51,7 +52,7 @@ export class Market {
       symbol: symbol.toLowerCase(),
     };
 
-    return this.common.request(this.method, `${this.pathPrefix}/trade`, qs);
+    return this.common.request(this.requestMethod, `${this.pathPrefix}/trade`, qs);
   }
 
   public async historyTrade(symbol: string, size?: number): Promise<MarketHistoryTrades> {
@@ -60,7 +61,7 @@ export class Market {
       size: (size ? size : (size > 2000 ? 2000 : size)),
     };
 
-    return this.common.request(this.method, `${this.pathPrefix}/history/trade`, qs);
+    return this.common.request(this.requestMethod, `${this.pathPrefix}/history/trade`, qs);
   }
 
   public async detail(symbol: string): Promise<MarketDetail> {
@@ -68,6 +69,6 @@ export class Market {
       symbol: symbol.toLowerCase(),
     };
 
-    return this.common.request(this.method, `${this.pathPrefix}/detail`, qs);
+    return this.common.request(this.requestMethod, `${this.pathPrefix}/detail`, qs);
   }
 }
