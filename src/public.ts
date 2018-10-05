@@ -1,31 +1,33 @@
 import { Common } from './common';
-import { PublicSymbols } from './interfaces/publicSymbols.interface';
 import { PublicCurrencies } from './interfaces/publicCurrencies';
+import { PublicSymbols } from './interfaces/publicSymbols.interface';
 import { PublicTimestamp } from './interfaces/publicTimestamp';
 
 export class Public {
   private common: Common;
 
-  private pathPrefix: string;
+  private apiPrefix: string;
   private requestMethod: string;
 
   constructor() {
     this.common = new Common();
 
-    this.pathPrefix = '/v1/common';
+    const apiVersion = '/v1';
+    const apiGroup = '/common';
+    this.apiPrefix = `${apiVersion}${apiGroup}`;
     this.requestMethod = 'GET';
   }
 
   public async symbols(): Promise<PublicSymbols> {
-    return this.common.request(this.requestMethod, `${this.pathPrefix}/symbols`);
+    return this.common.request(this.requestMethod, `${this.apiPrefix}/symbols`);
   }
 
   public async currencys(): Promise<PublicCurrencies> {
-    return this.common.request(this.requestMethod, `${this.pathPrefix}/currencys`);
+    return this.common.request(this.requestMethod, `${this.apiPrefix}/currencys`);
   }
 
   public async timestamp(): Promise<PublicTimestamp> {
-    return this.common.request(this.requestMethod, `${this.pathPrefix}/timestamp`);
+    return this.common.request(this.requestMethod, `${this.apiPrefix}/timestamp`);
   }
 }
 
