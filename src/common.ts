@@ -8,7 +8,7 @@ export class Common {
     this.uri = `https://${domain}`;
   }
 
-  public async request(method: string, path: string, qs?: object, body?: object): Promise<object> {
+  public async request(method: string, path: string, qs?: object, body?: object): Promise<any> {
     const opts = {
       uri: `${this.uri}${path}`,
       json: true,
