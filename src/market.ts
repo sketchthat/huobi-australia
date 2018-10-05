@@ -10,14 +10,14 @@ import { MarketTrade } from './interfaces/marketTrade.interface';
 export class Market {
   private common: Common;
 
-  private requestMethod: string;
   private pathPrefix: string;
+  private requestMethod: string;
 
   constructor() {
     this.common = new Common();
 
-    this.requestMethod = 'GET';
     this.pathPrefix = '/market';
+    this.requestMethod = 'GET';
   }
 
   public async historyKline(symbol: string, period: MarketHistoryKlineType, size: number): Promise<MarketHistoryKline> {

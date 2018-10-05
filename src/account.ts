@@ -22,9 +22,9 @@ export class Account {
     this.accessTokenId = accessTokenId;
     this.privateKey = privateKey;
 
-    this.requestMethod = 'GET';
     this.apiVersion = '/v1';
     this.pathPrefix = '/account';
+    this.requestMethod = 'GET';
   }
 
   public async accounts(): Promise<Accounts> {
