@@ -1,0 +1,67 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const crypto = require("crypto");
+const querystring = require("querystring");
+function createHmac(method, path, accessKeyId, privateKey, qs, post) {
+    const d = new Date();
+    const month = d.getUTCMonth() + 1;
+    const day = d.getUTCDate();
+    const hours = d.getUTCHours();
+    const minutes = d.getUTCMinutes();
+    const seconds = d.getUTCSeconds();
+    const date = [
+        d.getFullYear(),
+        leftPadDateTime(month),
+        leftPadDateTime(day),
+    ];
+    const time = [
+        leftPadDateTime(hours),
+        leftPadDateTime(minutes),
+        leftPadDateTime(seconds),
+    ];
+    const timestamp = `${date.join('-')}T${time.join(':')}`;
+    const message = [
+        method,
+        'api.huobi.com.au',
+        path,
+    ];
+    const params = Object.assign(qs ? qs : {}, post ? post : {});
+    const signatureParams = Object.assign({
+        AccessKeyId: accessKeyId,
+        SignatureMethod: 'HmacSHA256',
+        SignatureVersion: 2,
+        Timestamp: timestamp,
+    }, params);
+    const orderedSignatureParams = {};
+    Object.keys(signatureParams).sort()
+        .forEach(key => {
+        orderedSignatureParams[key] = signatureParams[key];
+    });
+    const stringQs = querystring.stringify(orderedSignatureParams);
+    const param = `${message.join('\n')}\n${stringQs}`;
+    const signature = crypto.createHmac('sha256', new Buffer(privateKey, 'utf8'))
+        .update(param)
+        .digest('base64');
+    const qsResult = Object.assign(orderedSignatureParams, { Signature: signature });
+    return {
+        method,
+        path,
+        qs: qsResult,
+    };
+}
+exports.createHmac = createHmac;
+function buildParams(params) {
+    const returnParams = {};
+    Object.keys(params)
+        .forEach(key => {
+        if (params[key]) {
+            returnParams[key] = params[key] instanceof Array ? params[key].join(',') : params[key];
+        }
+    });
+    return returnParams;
+}
+exports.buildParams = buildParams;
+function leftPadDateTime(d) {
+    return (d > 9 ? '' : '0') + d;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXV0aGVudGljYXRpb24uanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvc2VydmljZXMvYXV0aGVudGljYXRpb24udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxpQ0FBaUM7QUFDakMsMkNBQTJDO0FBYzNDLG9CQUEyQixNQUFjLEVBQUUsSUFBWSxFQUFFLFdBQW1CLEVBQUUsVUFBa0IsRUFBRSxFQUFRLEVBQUUsSUFBVTtJQUNwSCxNQUFNLENBQUMsR0FBRyxJQUFJLElBQUksRUFBRSxDQUFDO0lBRXJCLE1BQU0sS0FBSyxHQUFHLENBQUMsQ0FBQyxXQUFXLEVBQUUsR0FBRyxDQUFDLENBQUM7SUFDbEMsTUFBTSxHQUFHLEdBQUcsQ0FBQyxDQUFDLFVBQVUsRUFBRSxDQUFDO0lBQzNCLE1BQU0sS0FBSyxHQUFHLENBQUMsQ0FBQyxXQUFXLEVBQUUsQ0FBQztJQUM5QixNQUFNLE9BQU8sR0FBRyxDQUFDLENBQUMsYUFBYSxFQUFFLENBQUM7SUFDbEMsTUFBTSxPQUFPLEdBQUcsQ0FBQyxDQUFDLGFBQWEsRUFBRSxDQUFDO0lBRWxDLE1BQU0sSUFBSSxHQUFHO1FBQ1gsQ0FBQyxDQUFDLFdBQVcsRUFBRTtRQUNmLGVBQWUsQ0FBQyxLQUFLLENBQUM7UUFDdEIsZUFBZSxDQUFDLEdBQUcsQ0FBQztLQUNyQixDQUFDO0lBRUYsTUFBTSxJQUFJLEdBQUc7UUFDWCxlQUFlLENBQUMsS0FBSyxDQUFDO1FBQ3RCLGVBQWUsQ0FBQyxPQUFPLENBQUM7UUFDeEIsZUFBZSxDQUFDLE9BQU8sQ0FBQztLQUN6QixDQUFDO0lBRUYsTUFBTSxTQUFTLEdBQUcsR0FBRyxJQUFJLENBQUMsSUFBSSxDQUFDLEdBQUcsQ0FBQyxJQUFJLElBQUksQ0FBQyxJQUFJLENBQUMsR0FBRyxDQUFDLEVBQUUsQ0FBQztJQUV4RCxNQUFNLE9BQU8sR0FBRztRQUNkLE1BQU07UUFDTixrQkFBa0I7UUFDbEIsSUFBSTtLQUNMLENBQUM7SUFFRixNQUFNLE1BQU0sR0FBRyxNQUFNLENBQUMsTUFBTSxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQyxFQUFFLEVBQUUsSUFBSSxDQUFDLENBQUMsQ0FBQyxJQUFJLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDO0lBRTdELE1BQU0sZUFBZSxHQUFHLE1BQU0sQ0FBQyxNQUFNLENBQUM7UUFDcEMsV0FBVyxFQUFFLFdBQVc7UUFDeEIsZUFBZSxFQUFFLFlBQVk7UUFDN0IsZ0JBQWdCLEVBQUUsQ0FBQztRQUNuQixTQUFTLEVBQUUsU0FBUztLQUNyQixFQUFFLE1BQU0sQ0FBQyxDQUFDO0lBRVgsTUFBTSxzQkFBc0IsR0FBRyxFQUFFLENBQUM7SUFFbEMsTUFBTSxDQUFDLElBQUksQ0FBQyxlQUFlLENBQUMsQ0FBQyxJQUFJLEVBQUU7U0FDaEMsT0FBTyxDQUFDLEdBQUcsQ0FBQyxFQUFFO1FBQ2Isc0JBQXNCLENBQUMsR0FBRyxDQUFDLEdBQUcsZUFBZSxDQUFDLEdBQUcsQ0FBQyxDQUFDO0lBQ3JELENBQUMsQ0FBQyxDQUFDO0lBRUwsTUFBTSxRQUFRLEdBQUcsV0FBVyxDQUFDLFNBQVMsQ0FBQyxzQkFBc0IsQ0FBQyxDQUFDO0lBQy9ELE1BQU0sS0FBSyxHQUFHLEdBQUcsT0FBTyxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsS0FBSyxRQUFRLEVBQUUsQ0FBQztJQUVuRCxNQUFNLFNBQVMsR0FBRyxNQUFNLENBQUMsVUFBVSxDQUFDLFFBQVEsRUFBRSxJQUFJLE1BQU0sQ0FBQyxVQUFVLEVBQUUsTUFBTSxDQUFDLENBQUM7U0FDMUUsTUFBTSxDQUFDLEtBQUssQ0FBQztTQUNiLE1BQU0sQ0FBQyxRQUFRLENBQUMsQ0FBQztJQUVwQixNQUFNLFFBQVEsR0FBRyxNQUFNLENBQUMsTUFBTSxDQUFDLHNCQUFzQixFQUFFLEVBQUUsU0FBUyxFQUFFLFNBQVMsRUFBRSxDQUFDLENBQUM7SUFFakYsT0FBTztRQUNMLE1BQU07UUFDTixJQUFJO1FBQ0osRUFBRSxFQUFFLFFBQWU7S0FDcEIsQ0FBQztBQUNKLENBQUM7QUEzREQsZ0NBMkRDO0FBRUQscUJBQTRCLE1BQVc7SUFDckMsTUFBTSxZQUFZLEdBQUcsRUFBRSxDQUFDO0lBRXhCLE1BQU0sQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDO1NBQ2hCLE9BQU8sQ0FBQyxHQUFHLENBQUMsRUFBRTtRQUNiLElBQUksTUFBTSxDQUFDLEdBQUcsQ0FBQyxFQUFFO1lBQ2YsWUFBWSxDQUFDLEdBQUcsQ0FBQyxHQUFHLE1BQU0sQ0FBQyxHQUFHLENBQUMsWUFBWSxLQUFLLENBQUMsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQztTQUN4RjtJQUNILENBQUMsQ0FBQyxDQUFDO0lBRUwsT0FBTyxZQUFZLENBQUM7QUFDdEIsQ0FBQztBQVhELGtDQVdDO0FBRUQseUJBQXlCLENBQVM7SUFDaEMsT0FBTyxDQUFDLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsR0FBRyxDQUFDLEdBQUcsQ0FBQyxDQUFDO0FBQ2hDLENBQUMifQ==
