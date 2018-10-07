@@ -12,7 +12,7 @@ h.account().accounts()
     const accounts = resp.data;
 
     accounts.forEach(async account => {
-      const balanceResp = await h.account().accountsBalance(account.id);
+      const balanceResp = await h.account().accountsBalance(account.id.toString());
 
       const balances = balanceResp.data.list;
 
