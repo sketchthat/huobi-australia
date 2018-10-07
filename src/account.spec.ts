@@ -3,9 +3,9 @@
 import { assert } from 'chai';
 import { SinonStub, stub } from 'sinon';
 
+import { Account } from './account';
 import { Common } from './common';
 import * as createHmac from './services/authentication';
-import { Account } from './account';
 
 describe('Account', () => {
   let account: Account;
