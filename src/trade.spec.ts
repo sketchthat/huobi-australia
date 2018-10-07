@@ -87,7 +87,7 @@ describe('Trade', () => {
     });
 
     commonStub.returns({
-      trade: 'order',
+      trade: 'orders',
     });
 
     const resp: any = await trade.orders(
@@ -103,7 +103,7 @@ describe('Trade', () => {
     );
 
     const expectedMockReturn = {
-      trade: 'order',
+      trade: 'orders',
     };
 
     assert.deepEqual(resp, expectedMockReturn);
@@ -151,7 +151,7 @@ describe('Trade', () => {
     });
 
     commonStub.returns({
-      trade: 'order',
+      trade: 'orders',
     });
 
     const resp: any = await trade.orders(
@@ -160,7 +160,7 @@ describe('Trade', () => {
     );
 
     const expectedMockReturn = {
-      trade: 'order',
+      trade: 'orders',
     };
 
     assert.deepEqual(resp, expectedMockReturn);
@@ -201,7 +201,7 @@ describe('Trade', () => {
     });
 
     commonStub.returns({
-      trade: 'order',
+      trade: 'ordersPlace',
     });
 
     const resp: any = await trade.ordersPlace(
@@ -213,7 +213,7 @@ describe('Trade', () => {
     );
 
     const expectedMockReturn = {
-      trade: 'order',
+      trade: 'ordersPlace',
     };
 
     assert.deepEqual(resp, expectedMockReturn);
@@ -257,7 +257,7 @@ describe('Trade', () => {
     });
 
     commonStub.returns({
-      trade: 'order',
+      trade: 'ordersPlace',
     });
 
     const resp: any = await trade.ordersPlace(
@@ -268,7 +268,7 @@ describe('Trade', () => {
     );
 
     const expectedMockReturn = {
-      trade: 'order',
+      trade: 'ordersPlace',
     };
 
     assert.deepEqual(resp, expectedMockReturn);
@@ -311,13 +311,13 @@ describe('Trade', () => {
     });
 
     commonStub.returns({
-      trade: 'order',
+      trade: 'ordersSubmitCancel',
     });
 
     const resp: any = await trade.ordersSubmitCancel('112233');
 
     const expectedMockReturn = {
-      trade: 'order',
+      trade: 'ordersSubmitCancel',
     };
 
     assert.deepEqual(resp, expectedMockReturn);
@@ -354,13 +354,13 @@ describe('Trade', () => {
     });
 
     commonStub.returns({
-      trade: 'order',
+      trade: 'ordersBatchCancel',
     });
 
     const resp: any = await trade.ordersBatchCancel(['112233', '223344', '556677']);
 
     const expectedMockReturn = {
-      trade: 'order',
+      trade: 'ordersBatchCancel',
     };
 
     assert.deepEqual(resp, expectedMockReturn);
