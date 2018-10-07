@@ -21,11 +21,6 @@ describe('Trade', () => {
 
   beforeEach(() => {
     commonStub.reset();
-    commonStub.callsFake(
-      async () => {
-      return { response: true };
-    });
-
     hmacStub.reset();
   });
 
@@ -59,6 +54,49 @@ describe('Trade', () => {
       [
         'GET',
         '/v1/order/orders/112233',
+        'MyAccessTokenId',
+        'MyPrivateKey',
+      ],
+    ];
+
+    assert.deepEqual(hmacStub.args, expectedHmacArgs);
+
+    const expectedCommonArgs = [
+      [
+        'mockMethod',
+        '/mockPath',
+        { mock: 'method' },
+      ],
+    ];
+
+    assert.deepEqual(commonStub.args, expectedCommonArgs);
+  });
+
+  it('should call orderMatchResults', async () => {
+    hmacStub.returns({
+      method: 'mockMethod',
+      path: '/mockPath',
+      qs: {
+        mock: 'method',
+      },
+    });
+
+    commonStub.returns({
+      trade: 'order',
+    });
+
+    const resp: any = await trade.orderMatchResults('112233');
+
+    const expectedMockReturn = {
+      trade: 'order',
+    };
+
+    assert.deepEqual(resp, expectedMockReturn);
+
+    const expectedHmacArgs = [
+      [
+        'GET',
+        '/v1/order/orders/112233/matchresults',
         'MyAccessTokenId',
         'MyPrivateKey',
       ],

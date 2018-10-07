@@ -20,11 +20,11 @@ export class Market {
     this.requestMethod = 'GET';
   }
 
-  public async historyKline(symbol: string, period: MarketHistoryKlineType, size: number): Promise<MarketHistoryKline> {
+  public async historyKline(symbol: string, period: MarketHistoryKlineType, size?: number): Promise<MarketHistoryKline> {
     const qs = {
       symbol: symbol.toLowerCase(),
       period,
-      size: (size ? size : (size > 2000 ? 2000 : size)),
+      size: size ? (size && size > 2000 ? 2000 : size) : 150,
     };
 
     return this.common.request(this.requestMethod, `${this.apiPrefix}/history/kline`, qs);

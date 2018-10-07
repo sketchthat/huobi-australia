@@ -21,11 +21,6 @@ describe('Account', () => {
 
   beforeEach(() => {
     commonStub.reset();
-    commonStub.callsFake(
-      async () => {
-      return { response: true };
-    });
-
     hmacStub.reset();
   });
 

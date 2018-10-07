@@ -18,10 +18,6 @@ describe('Market', () => {
 
   beforeEach(() => {
     commonStub.reset();
-    commonStub.callsFake(
-      async () => {
-      return { response: true };
-    });
   });
 
   after(() => {
@@ -48,6 +44,62 @@ describe('Market', () => {
         {
           period: '1day',
           size: 10,
+          symbol: 'btcaud',
+        },
+      ],
+    ];
+
+    assert.deepEqual(commonStub.args, expectedCommonArgs);
+  });
+
+  it('should call historyKline with large number out of range', async () => {
+    commonStub.returns({
+      market: 'kline',
+    });
+
+    const resp: any = await market.historyKline('btcaud', '1day', 5000);
+
+    const expectedMockReturn = {
+      market: 'kline',
+    };
+
+    assert.deepEqual(resp, expectedMockReturn);
+
+    const expectedCommonArgs = [
+      [
+        'GET',
+        '/market/history/kline',
+        {
+          period: '1day',
+          size: 2000,
+          symbol: 'btcaud',
+        },
+      ],
+    ];
+
+    assert.deepEqual(commonStub.args, expectedCommonArgs);
+  });
+
+  it('should call partial historyKline', async () => {
+    commonStub.returns({
+      market: 'kline',
+    });
+
+    const resp: any = await market.historyKline('btcaud', '1day');
+
+    const expectedMockReturn = {
+      market: 'kline',
+    };
+
+    assert.deepEqual(resp, expectedMockReturn);
+
+    const expectedCommonArgs = [
+      [
+        'GET',
+        '/market/history/kline',
+        {
+          period: '1day',
+          size: 150,
           symbol: 'btcaud',
         },
       ],
