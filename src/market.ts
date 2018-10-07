@@ -58,7 +58,7 @@ export class Market {
   public async historyTrade(symbol: string, size?: number): Promise<MarketHistoryTrades> {
     const qs = {
       symbol: symbol.toLowerCase(),
-      size: (size ? size : (size > 2000 ? 2000 : size)),
+      size: size ? (size && size > 2000 ? 2000 : size) : 1,
     };
 
     return this.common.request(this.requestMethod, `${this.apiPrefix}/history/trade`, qs);
