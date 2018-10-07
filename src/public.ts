@@ -31,5 +31,3 @@ export class Public {
     return this.common.request(this.requestMethod, `${this.apiPrefix}/timestamp`);
   }
 }
-
-
