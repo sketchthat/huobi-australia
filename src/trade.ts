@@ -1,6 +1,7 @@
 import { Common } from './common';
-import { TradeOrderDirectType, TradeOrders, TradeOrderStatesType, TradeOrderTypesType } from './interfaces/tradeOrders.interface';
+import { TradeOrderDirectType, TradeOrders, TradeOrderStatesType, TradeOrderTypesType, TradeOrder } from './interfaces/tradeOrders.interface';
 import { buildQs, createHmac } from './services/authentication';
+import { TradeOrderMatchResults } from './interfaces/tradeOrdersMatchResults.interface';
 
 export class Trade {
   private common: Common;
@@ -24,6 +25,32 @@ export class Trade {
     this.apiPrefix = `${apiVersion}${apiGroup}`;
   }
 
+  // POST /v1/order/orders/place
+  // POST /v1/order/orders/{order-id}/submitcancel
+  // POST /v1/order/orders/batchcancel
+
+  public async order(orderId: number): Promise<TradeOrder> {
+    const r = createHmac(
+      'GET',
+      `${this.apiPrefix}/orders/${orderId}`,
+      this.accessTokenId,
+      this.privateKey,
+    );
+
+    return this.common.request(r.method, r.path, r.qs);
+  }
+
+  public async orderMatchResults(orderId: number): Promise<TradeOrderMatchResults> {
+    const r = createHmac(
+      'GET',
+      `${this.apiPrefix}/orders/${orderId}/matchresults`,
+      this.accessTokenId,
+      this.privateKey,
+    );
+
+    return this.common.request(r.method, r.path, r.qs);
+  }
+
   public async orders(
     symbol: string,
     states: TradeOrderStatesType[],
@@ -36,7 +63,7 @@ export class Trade {
     size?: string,
   ): Promise<TradeOrders> {
     const qs = buildQs({
-      symbol,
+      symbol: symbol.toLowerCase(),
       states,
       accountId,
       types,

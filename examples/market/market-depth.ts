@@ -1,8 +1,8 @@
-import { Huobi } from '../src/index';
+import { Huobi } from '../../src/index';
 
 const h = new Huobi();
 
-h.market().historyKline('btcaud', '1day', 2)
+h.market().depth('btcaud', 'step3')
   .then(resp => {
     console.log(resp);
   })

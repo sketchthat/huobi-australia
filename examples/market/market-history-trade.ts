@@ -1,8 +1,8 @@
-import { Huobi } from '../src/index';
+import { Huobi } from '../../src/index';
 
 const h = new Huobi();
 
-h.market().detail('btcaud')
+h.market().historyTrade('btcaud', 5)
   .then(resp => {
     console.log(resp);
   })

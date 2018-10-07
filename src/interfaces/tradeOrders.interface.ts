@@ -3,6 +3,11 @@ export interface TradeOrders {
   data: TradeOrdersData[];
 }
 
+export interface TradeOrder {
+  status: string;
+  data: TradeOrdersData;
+}
+
 interface TradeOrdersData {
   id: number;
   symbol: string;

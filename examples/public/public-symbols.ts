@@ -1,8 +1,8 @@
-import { Huobi } from '../src/index';
+import { Huobi } from '../../src/index';
 
 const h = new Huobi();
 
-h.market().depth('btcaud', 'step3')
+h.public().symbols()
   .then(resp => {
     console.log(resp);
   })

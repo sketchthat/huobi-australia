@@ -1,8 +1,9 @@
-import { Huobi } from '../src/index';
+import { Huobi } from '../../src/index';
 
 const h = new Huobi();
 
-h.market().historyTrade('btcaud', 5)
+// EN [currencies]
+h.public().currencys()
   .then(resp => {
     console.log(resp);
   })
