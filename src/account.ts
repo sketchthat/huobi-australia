@@ -39,7 +39,7 @@ export class Account {
     return this.common.request(r.method, r.path, r.qs);
   }
 
-  public async accountsBalance(accountId: number): Promise<AccountsBalances> {
+  public async accountsBalance(accountId: string): Promise<AccountsBalances> {
     const r = createHmac(
       this.requestMethod,
       `${this.apiPrefix}/accounts/${accountId}/balance`,
