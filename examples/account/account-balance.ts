@@ -3,7 +3,7 @@ import * as fs from 'fs';
 const keys = JSON.parse(fs.readFileSync('./examples/keys.json', 'utf8'));
 
 // Start Example
-import { Huobi } from '../src/index';
+import { Huobi } from '../../src/index';
 
 const h = new Huobi(keys.accessTokenId, keys.privateKey);
 
@@ -22,5 +22,5 @@ h.account().accounts()
     });
   })
   .catch(err => {
-    console.error('ERR: ', err);
+    console.error(err);
   });

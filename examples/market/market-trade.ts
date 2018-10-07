@@ -1,11 +1,11 @@
-import { Huobi } from '../src/index';
+import { Huobi } from '../../src/index';
 
 const h = new Huobi();
 
-h.public().timestamp()
+h.market().trade('btcaud')
   .then(resp => {
     console.log(resp);
   })
   .catch(err => {
-    console.error('ERR: ', err);
+    console.error(err);
   });
