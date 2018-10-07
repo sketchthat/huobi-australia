@@ -13,7 +13,7 @@ interface HmacResponse {
   };
 }
 
-export function createHmac(method: string, path: string, accessKeyId: string, privateKey: string, qs?: any): HmacResponse {
+export function createHmac(method: string, path: string, accessKeyId: string, privateKey: string, qs?: any, post?: any): HmacResponse {
   const d = new Date();
 
   const month = d.getUTCMonth() + 1;
@@ -42,13 +42,14 @@ export function createHmac(method: string, path: string, accessKeyId: string, pr
     path,
   ];
 
-  // TODO - Sort by Alphabetical when additional queries exist
+  const params = Object.assign(qs ? qs : {}, post ? post : {});
+
   const signatureParams = Object.assign({
     AccessKeyId: accessKeyId,
     SignatureMethod: 'HmacSHA256',
     SignatureVersion: 2,
     Timestamp: timestamp,
-  }, qs ? qs : {});
+  }, params);
 
   const orderedSignatureParams = {};
 
@@ -73,17 +74,17 @@ export function createHmac(method: string, path: string, accessKeyId: string, pr
   };
 }
 
-export function buildQs(qs: any): any {
-  const returnQs = {};
+export function buildParams(params: any): any {
+  const returnParams = {};
 
-  Object.keys(qs)
+  Object.keys(params)
     .forEach(key => {
-      if (qs[key]) {
-        returnQs[key] = qs[key] instanceof Array ? qs[key].join(',') : qs[key];
+      if (params[key]) {
+        returnParams[key] = params[key] instanceof Array ? params[key].join(',') : params[key];
       }
     });
 
-  return returnQs;
+  return returnParams;
 }
 
 function leftPadDateTime(d: number): string {

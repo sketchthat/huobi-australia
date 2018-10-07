@@ -1,8 +1,16 @@
 import { Common } from './common';
-import { TradeOrderDirectType, TradeOrders, TradeOrderStatesType, TradeOrderTypesType, TradeOrder } from './interfaces/tradeOrders.interface';
-import { buildQs, createHmac } from './services/authentication';
+import { buildParams, createHmac } from './services/authentication';
+
+import {
+  TradeOrder,
+  TradeOrderDirectType,
+  TradeOrders,
+  TradeOrderStatesType,
+  TradeOrderTypesType,
+} from './interfaces/tradeOrders.interface';
+import { TradeOrdersBatchCancel } from './interfaces/tradeOrdersBatchCancel.interface';
 import { TradeOrderMatchResults } from './interfaces/tradeOrdersMatchResults.interface';
-import { TradeOrdersPlaceAccountIdType, TradeOrdersPlaceTypeType, TradeOrdersPlaceSourceType } from './interfaces/tradeOrdersPlace.interface';
+import { TradeOrdersPlace, TradeOrdersPlaceSourceType, TradeOrdersPlaceTypeType  } from './interfaces/tradeOrdersPlace.interface';
 
 export class Trade {
   private common: Common;
@@ -26,11 +34,7 @@ export class Trade {
     this.apiPrefix = `${apiVersion}${apiGroup}`;
   }
 
-  // POST /v1/order/orders/place
-  // POST /v1/order/orders/{order-id}/submitcancel
-  // POST /v1/order/orders/batchcancel
-
-  public async order(orderId: number): Promise<TradeOrder> {
+  public async order(orderId: string): Promise<TradeOrder> {
     const r = createHmac(
       'GET',
       `${this.apiPrefix}/orders/${orderId}`,
@@ -41,7 +45,7 @@ export class Trade {
     return this.common.request(r.method, r.path, r.qs);
   }
 
-  public async orderMatchResults(orderId: number): Promise<TradeOrderMatchResults> {
+  public async orderMatchResults(orderId: string): Promise<TradeOrderMatchResults> {
     const r = createHmac(
       'GET',
       `${this.apiPrefix}/orders/${orderId}/matchresults`,
@@ -63,7 +67,7 @@ export class Trade {
     direct?: TradeOrderDirectType,
     size?: string,
   ): Promise<TradeOrders> {
-    const qs = buildQs({
+    const qs = buildParams({
       symbol: symbol.toLowerCase(),
       states,
       accountId,
@@ -89,15 +93,15 @@ export class Trade {
   public async ordersPlace(
     symbol: string,
     type: TradeOrdersPlaceTypeType,
-    accountId: TradeOrdersPlaceAccountIdType,
+    accountId: string,
     amount: string,
     price?: string,
     source?: TradeOrdersPlaceSourceType,
-  ) {
-    const qs = buildQs({
+  ): Promise<TradeOrdersPlace> {
+    const post = buildParams({
       symbol: symbol.toLowerCase(),
       type,
-      accountId,
+      'account-id': accountId,
       amount,
       price,
       source,
@@ -108,9 +112,30 @@ export class Trade {
       `${this.apiPrefix}/orders/place`,
       this.accessTokenId,
       this.privateKey,
-      qs,
     );
 
-    console.log(r);
+    return this.common.request(r.method, r.path, r.qs, post);
+  }
+
+  public async ordersSubmitCancel(orderId: string): Promise<TradeOrdersPlace> {
+    const r = createHmac(
+      'POST',
+      `${this.apiPrefix}/orders/${orderId}/submitcancel`,
+      this.accessTokenId,
+      this.privateKey,
+    );
+
+    return this.common.request(r.method, r.path, r.qs);
+  }
+
+  public async ordersBatchCancel(orderIds: string[]): Promise<TradeOrdersBatchCancel> {
+    const r = createHmac(
+      'POST',
+      `${this.apiPrefix}/orders/batchcancel`,
+      this.accessTokenId,
+      this.privateKey,
+    );
+
+    return this.common.request(r.method, r.path, r.qs, { 'order-ids': orderIds });
   }
 }

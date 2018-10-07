@@ -1,4 +1,5 @@
 import { Common } from './common';
+
 import { PublicCurrencies } from './interfaces/publicCurrencies';
 import { PublicSymbols } from './interfaces/publicSymbols.interface';
 import { PublicTimestamp } from './interfaces/publicTimestamp';

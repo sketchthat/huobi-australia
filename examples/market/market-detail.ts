@@ -7,5 +7,5 @@ h.market().detail('btcaud')
     console.log(resp);
   })
   .catch(err => {
-    console.error('ERR: ', err);
+    console.error(err);
   });

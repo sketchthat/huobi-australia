@@ -1,7 +1,8 @@
 import { Common } from './common';
+import { createHmac } from './services/authentication';
+
 import { Accounts } from './interfaces/accounts.interface';
 import { AccountsBalances } from './interfaces/accountsBalances.interface';
-import { createHmac } from './services/authentication';
 
 export class Account {
   private common: Common;

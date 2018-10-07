@@ -7,5 +7,5 @@ h.market().depth('btcaud', 'step3')
     console.log(resp);
   })
   .catch(err => {
-    console.error('ERR: ', err);
+    console.error(err);
   });

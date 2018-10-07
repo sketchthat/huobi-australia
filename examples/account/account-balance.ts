@@ -22,5 +22,5 @@ h.account().accounts()
     });
   })
   .catch(err => {
-    console.error('ERR: ', err);
+    console.error(err);
   });

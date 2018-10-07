@@ -11,7 +11,7 @@ async function runExample() {
   const orders = await h.trade().orders('BTCAUD', ['filled']);
 
   if (orders.data.length > 0) {
-    const order = await h.trade().order(orders.data[0].id);
+    const order = await h.trade().order(orders.data[0].id.toString());
 
     console.log(order);
   }

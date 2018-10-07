@@ -7,5 +7,5 @@ h.market().historyTrade('btcaud', 5)
     console.log(resp);
   })
   .catch(err => {
-    console.error('ERR: ', err);
+    console.error(err);
   });
