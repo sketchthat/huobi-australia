@@ -2,6 +2,7 @@ import { Common } from './common';
 import { TradeOrderDirectType, TradeOrders, TradeOrderStatesType, TradeOrderTypesType, TradeOrder } from './interfaces/tradeOrders.interface';
 import { buildQs, createHmac } from './services/authentication';
 import { TradeOrderMatchResults } from './interfaces/tradeOrdersMatchResults.interface';
+import { TradeOrdersPlaceAccountIdType, TradeOrdersPlaceTypeType, TradeOrdersPlaceSourceType } from './interfaces/tradeOrdersPlace.interface';
 
 export class Trade {
   private common: Common;
@@ -83,5 +84,33 @@ export class Trade {
     );
 
     return this.common.request(r.method, r.path, r.qs);
+  }
+
+  public async ordersPlace(
+    symbol: string,
+    type: TradeOrdersPlaceTypeType,
+    accountId: TradeOrdersPlaceAccountIdType,
+    amount: string,
+    price?: string,
+    source?: TradeOrdersPlaceSourceType,
+  ) {
+    const qs = buildQs({
+      symbol: symbol.toLowerCase(),
+      type,
+      accountId,
+      amount,
+      price,
+      source,
+    });
+
+    const r = createHmac(
+      'POST',
+      `${this.apiPrefix}/orders/place`,
+      this.accessTokenId,
+      this.privateKey,
+      qs,
+    );
+
+    console.log(r);
   }
 }
