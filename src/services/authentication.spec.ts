@@ -17,7 +17,9 @@ describe('Authentication', () => {
 
   beforeEach(() => {
     cryptoStub.reset();
-    this.clock = sinon.useFakeTimers(new Date('2018-11-07 09:05:02'));
+
+    const utcDate = new Date(Date.UTC(2018, 10, 7, 9, 5, 2));
+    this.clock = sinon.useFakeTimers(utcDate);
   });
 
   after(() => {
