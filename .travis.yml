@@ -1,6 +1,8 @@
 language: nodejs
 node_js:
   - "8"
+before_install:
+  - export TZ=UTC
 
 before_script:
   - npm install
