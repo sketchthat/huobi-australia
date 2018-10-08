@@ -1,6 +1,6 @@
 {
   "name": "huobi-australia",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Typescript wrapper for Huobi Australia Exchange",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
