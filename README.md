@@ -23,10 +23,10 @@ The API wrapper exposes several classes, `Public`, `Market`, `Trade` and `Accoun
 
 ### Exposed Functions
 
-- `Public` methods are within [`public.ts`](https://github.com/sketchthat/huobi-australia/blob/master/src/public.ts) - No authentication required.
-- `Market` methods are within [`market.ts`](https://github.com/sketchthat/huobi-australia/blob/master/src/market.ts) - No authentication required.
-- `Trade` methods are within [`trade.ts`](https://github.com/sketchthat/huobi-australia/blob/master/src/trade.ts) - Authentication required.
-- `Account` methods are within [`account.ts`](https://github.com/sketchthat/huobi-australia/blob/master/src/account.ts) - Authentication required.
+- [`Public`](https://github.com/sketchthat/huobi-australia/wiki/Public-Functions) methods are within [`public.ts`](https://github.com/sketchthat/huobi-australia/blob/master/src/public.ts) - No authentication required.
+- [`Market`](https://github.com/sketchthat/huobi-australia/wiki/Market-Functions) methods are within [`market.ts`](https://github.com/sketchthat/huobi-australia/blob/master/src/market.ts) - No authentication required.
+- [`Trade`](https://github.com/sketchthat/huobi-australia/wiki/Trade-Functions) methods are within [`trade.ts`](https://github.com/sketchthat/huobi-australia/blob/master/src/trade.ts) - Authentication required.
+- [`Account`](https://github.com/sketchthat/huobi-australia/wiki/Account-Functions) methods are within [`account.ts`](https://github.com/sketchthat/huobi-australia/blob/master/src/account.ts) - Authentication required.
 
 ### Example
 
