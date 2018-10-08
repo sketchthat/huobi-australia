@@ -30,8 +30,7 @@ The API wrapper exposes several classes, `Public`, `Market`, `Trade` and `Accoun
 
 ### Example
 
-Examples for usage of each function can be found within the [examples folder]
-(https://github.com/sketchthat/huobi-australia/tree/master/examples).
+Examples for usage of each function can be found within the [examples folder](https://github.com/sketchthat/huobi-australia/tree/master/examples) and in the [Wiki](https://github.com/sketchthat/huobi-australia/wiki)
 
 ```typescript
 import { Huobi } from 'huobi-australia';
