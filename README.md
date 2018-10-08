@@ -15,24 +15,42 @@ npm install huobi-australia --save
 
 ### API Key
 
-TODO
+In order to utilise `Account` and `Trade` features you'll need to generate an [API Key](https://www.huobi.com.au/user/api) with Huobi.
 
 ## Usage
 
-TODO
+The API wrapper exposes several classes, `Public`, `Market`, `Trade` and `Account`. Each class has methods for each API Endpoint as specified in the [Huobi API Documentation](https://huobiaustralia.readme.io/docs/rest-api-reference).
 
 ### Exposed Functions
 
-TODO
+- `Public` methods are within [`public.ts`](https://github.com/sketchthat/huobi-australia/blob/master/src/public.ts) - No authentication required.
+- `Market` methods are within [`market.ts`](https://github.com/sketchthat/huobi-australia/blob/master/src/market.ts) - No authentication required.
+- `Trade` methods are within [`trade.ts`](https://github.com/sketchthat/huobi-australia/blob/master/src/trade.ts) - Authentication required.
+- `Account` methods are within [`account.ts`](https://github.com/sketchthat/huobi-australia/blob/master/src/account.ts) - Authentication required.
 
 ### Example
 
+Examples for usage of each function can be found within the [examples folder]
+(https://github.com/sketchthat/huobi-australia/tree/master/examples).
+
 ```typescript
-import { huobi } from 'huobi-australia';
+import { Huobi } from 'huobi-australia';
 
-const h = new huobi('accessId', 'privateKey');
+// Authenticated Requests
+const h = new Huobi('MyAccessTokenId', 'MyPrivateKey');
 
-// TODO
+h.account().accounts()
+  .then(resp => {
+    console.log(resp);
+  });
+
+// Unauthenticated Requests
+const unauthH = new Huobi();
+
+h.market().trade('btcaud')
+  .then(resp => {
+    console.log(resp);
+  });
 ```
 
 

@@ -1,14 +1,14 @@
 {
   "name": "huobi-australia",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Typescript wrapper for Huobi Australia Exchange",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -d",
-    "test": "mocha \"src/**/*.ts\" --require ts-node/register --require source-map-support/register --full-trace --bail",
-    "coverage": "nyc npm test",
-    "coverage-ci": "npm run coverage | coveralls",
+    "test": "./node_modules/mocha/bin/mocha \"src/**/*.ts\" --require ts-node/register --require source-map-support/register --full-trace --bail",
+    "coverage": "./node_modules/nyc/bin/nyc.js npm test",
+    "coverage-ci": "./node_modules/nyc/bin/nyc.js npm test --reporter=text-lcov ",
     "lint": "tslint --project tsconfig.json"
   },
   "repository": {
@@ -47,7 +47,6 @@
     "@types/mocha": "^5.2.0",
     "@types/node": "^9.6.6",
     "chai": "^4.1.2",
-    "coveralls": "^3.0.1",
     "mocha": "^5.0.0",
     "nyc": "^11.7.1",
     "sinon": "^5.1.1",
