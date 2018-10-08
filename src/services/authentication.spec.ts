@@ -32,7 +32,7 @@ describe('Authentication', () => {
     const cryptoReturns = {
       update(update) {
         // tslint:disable-next-line: max-line-length
-        const expectedUpdate = 'GET\napi.huobi.com.au\n/v1/some/path\nAccessKeyId=MyAccountTokenId&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2018-11-07T08%3A05%3A02';
+        const expectedUpdate = 'GET\napi.huobi.com.au\n/v1/some/path\nAccessKeyId=MyAccountTokenId&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2018-11-07T09%3A05%3A02';
 
         assert.strictEqual(update, expectedUpdate);
 
@@ -56,7 +56,7 @@ describe('Authentication', () => {
         AccessKeyId: 'MyAccountTokenId',
         SignatureMethod: 'HmacSHA256',
         SignatureVersion: 2,
-        Timestamp: '2018-11-07T08:05:02',
+        Timestamp: '2018-11-07T09:05:02',
         Signature: 'YWJjMTIz',
       },
     };
@@ -69,7 +69,7 @@ describe('Authentication', () => {
     const cryptoReturns = {
       update(update) {
         // tslint:disable-next-line: max-line-length
-        const expectedUpdate = 'GET\napi.huobi.com.au\n/v1/some/path\nAccessKeyId=MyAccountTokenId&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2018-11-07T08%3A05%3A02&alpha=sort&some=query&string=word';
+        const expectedUpdate = 'GET\napi.huobi.com.au\n/v1/some/path\nAccessKeyId=MyAccountTokenId&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2018-11-07T09%3A05%3A02&alpha=sort&some=query&string=word';
 
         assert.strictEqual(update, expectedUpdate);
 
@@ -103,7 +103,7 @@ describe('Authentication', () => {
         alpha: 'sort',
         SignatureMethod: 'HmacSHA256',
         SignatureVersion: 2,
-        Timestamp: '2018-11-07T08:05:02',
+        Timestamp: '2018-11-07T09:05:02',
         Signature: 'YWJjMTIz',
         some: 'query',
         string: 'word',
@@ -118,7 +118,7 @@ describe('Authentication', () => {
     const cryptoReturns = {
       update(update) {
         // tslint:disable-next-line: max-line-length
-        const expectedUpdate = 'POST\napi.huobi.com.au\n/v1/some/path\nAccessKeyId=MyAccountTokenId&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2018-11-07T08%3A05%3A02&alpha=post&data=true';
+        const expectedUpdate = 'POST\napi.huobi.com.au\n/v1/some/path\nAccessKeyId=MyAccountTokenId&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2018-11-07T09%3A05%3A02&alpha=post&data=true';
 
         assert.strictEqual(update, expectedUpdate);
 
@@ -149,7 +149,7 @@ describe('Authentication', () => {
         AccessKeyId: 'MyAccountTokenId',
         SignatureMethod: 'HmacSHA256',
         SignatureVersion: 2,
-        Timestamp: '2018-11-07T08:05:02',
+        Timestamp: '2018-11-07T09:05:02',
         Signature: 'YWJjMTIz',
         alpha: 'post',
         data: 'true',
