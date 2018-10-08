@@ -3,7 +3,7 @@
 
 # Huobi Australia Wrapper
 
-Typescript / Node wrapper for the Data and Trading APIs offered by [Huobi Australia](https://huobi.com.au)
+Typescript / Node wrapper for the Market, Public, Account and Trade APIs offered by [Huobi Australia](https://huobi.com.au)
 
 ## Setup
 
@@ -47,7 +47,7 @@ h.account().accounts()
 // Unauthenticated Requests
 const unauthH = new Huobi();
 
-h.market().trade('btcaud')
+unauthH.market().trade('btcaud')
   .then(resp => {
     console.log(resp);
   });
