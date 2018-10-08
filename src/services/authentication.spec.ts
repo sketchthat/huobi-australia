@@ -80,7 +80,7 @@ describe('Authentication', () => {
       digest(digest) {
         assert.strictEqual(digest, 'base64');
 
-        return Buffer.from('abc123').toString('base64');
+        return 'YWJjMTIz';
       },
     };
 
@@ -129,7 +129,7 @@ describe('Authentication', () => {
       digest(digest) {
         assert.strictEqual(digest, 'base64');
 
-        return Buffer.from('abc123').toString('base64');
+        return 'YWJjMTIz';
       },
     };
 
