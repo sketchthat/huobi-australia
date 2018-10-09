@@ -8,7 +8,7 @@
     "build": "tsc -d",
     "test": "./node_modules/mocha/bin/mocha \"src/**/*.ts\" --require ts-node/register --require source-map-support/register --full-trace",
     "coverage": "./node_modules/nyc/bin/nyc.js npm test",
-    "coverage-ci": "./node_modules/nyc/bin/nyc.js npm test --reporter=text-lcov ",
+    "coverage-ci": "npm run coverage | coveralls",
     "lint": "tslint --project tsconfig.json"
   },
   "repository": {
