@@ -1,6 +1,6 @@
 {
   "name": "huobi-australia",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Typescript wrapper for Huobi Australia Exchange",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -37,7 +37,6 @@
   },
   "homepage": "https://github.com/sketchthat/huobi-australia#readme",
   "dependencies": {
-    "crypto": "^1.0.1",
     "querystring": "^0.2.0",
     "request": "^2.85.0",
     "request-promise": "^4.2.2"
