@@ -1,3 +1,6 @@
+# Depreciated
+_Huobi Australia Exchange has migrated, as such this package is no longer required._
+
 [![Build Status](https://travis-ci.org/sketchthat/huobi-australia.svg?branch=master)](https://travis-ci.org/sketchthat/huobi-australia) [![Coverage Status](https://coveralls.io/repos/github/sketchthat/huobi-australia/badge.svg?branch=master)](https://coveralls.io/github/sketchthat/huobi-australia?branch=master)
 ![Dependencies](https://david-dm.org/sketchthat/huobi-australia.svg)
 
